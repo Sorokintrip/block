@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detect Lock and Unlock</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            background-color: transparent; /* Прозрачный фон */
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        #message {
+            font-size: 2rem;
+            color: #333;
+            white-space: nowrap; /* Гарантирует, что текст не перенесется */
+        }
+    </style>
+</head>
+<body>
+    <div id="message"></div>
+
+    <script>
+        let hidden = false;
+
+        // Listen for visibility change
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden) {
+                hidden = true; // Mark page as hidden
+            } else if (hidden) {
+                // When page becomes visible again
+                document.getElementById("message").textContent = "54.202020, 20.545454";
+                hidden = false;
+
+                // Автоматическая корректировка размера iframe, если нужно
+                window.parent?.postMessage({
+                    type: "resize",
+                    height: document.body.scrollHeight
+                }, "*");
+            }
+        });
+    </script>
+</body>
+</html>
